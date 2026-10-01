@@ -38,7 +38,7 @@ st.markdown("<div class='section-title'>🗺️ India AQI Heat Map</div>", unsaf
 st.markdown(f"<p style='color:{t['SUBTEXT']};font-size:0.9rem'>Hover over any point to see city name and AQI value.</p>", unsafe_allow_html=True)
 map_df = df.dropna(subset=['latitude','longitude','AQI'])
 map_df = map_df.groupby(['station_code','city','state','latitude','longitude'])['AQI'].mean().reset_index()
-fig_map = px.scatter_map(
+fig_map = px.scatter_mapbox(
     map_df,
     lat='latitude',
     lon='longitude',
@@ -46,54 +46,21 @@ fig_map = px.scatter_map(
     size='AQI',
     size_max=18,
     hover_name='city',
-    hover_data={
-        'state': True,
-        'AQI': ':.0f',
-        'latitude': False,
-        'longitude': False
-    },
+    hover_data={'state':True,'AQI':':.0f','latitude':False,'longitude':False},
     color_continuous_scale=[
-        [0, "#2DC653"],
-        [0.2, "#A8E063"],
-        [0.4, "#F9C74F"],
-        [0.6, "#F4A261"],
-        [0.8, "#E63946"],
-        [1, "#6C1515"]
+        [0,"#2DC653"],
+        [0.2,"#A8E063"],
+        [0.4,"#F9C74F"],
+        [0.6,"#F4A261"],
+        [0.8,"#E63946"],
+        [1,"#6C1515"]
     ],
-    range_color=[50, 200],
+    range_color=[50,200],
+    mapbox_style=t['MAP_STYLE'],
     zoom=4,
-    center={"lat": 22.5, "lon": 82.0},
+    center={"lat":22.5,"lon":82.0},
     height=520
 )
-
-# Dark theme + circle outlines
-fig_map.update_traces(
-    marker=dict(
-        opacity=0.85,
-        line=dict(
-            width=1.2,
-            color=t['TEXT']
-        )
-    )
-)
-
-fig_map.update_layout(
-    paper_bgcolor=t['CARD'],
-    plot_bgcolor=t['CARD'],
-    margin=dict(l=0, r=0, t=0, b=0),
-    font=dict(color=t['TEXT']),
-    coloraxis_colorbar=dict(
-        title=dict(
-            text="AQI",
-            font=dict(color=t['TEXT'])
-        ),
-        tickfont=dict(color=t['SUBTEXT']),
-        bgcolor=t['CARD'],
-        bordercolor=t['BORDER'],
-        borderwidth=1
-    )
-)
-
 fig_map.update_layout(paper_bgcolor=t['CARD'],margin=dict(l=0,r=0,t=0,b=0),coloraxis_colorbar=dict(title=dict(text="AQI",font=dict(color=t['TEXT'])),tickfont=dict(color=t['SUBTEXT'])))
 st.plotly_chart(fig_map,use_container_width=True)
 st.markdown(f"<div class='insight-box'>💡 <b style='color:{t['TEXT']}'>Key Insight:</b> The map clearly shows India's North-South pollution divide. The entire Indo-Gangetic Plain (Delhi, Punjab, Bihar, UP) shows red and orange while Northeast India and coastal South India remain green.</div>", unsafe_allow_html=True)
