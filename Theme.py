@@ -31,7 +31,19 @@ def inject_theme_css(t):
     .insight-box{{background:{t['CARD']};border-left:4px solid {t['ACCENT']};border-radius:8px;padding:16px 20px;margin-top:12px;font-size:0.92rem;color:{t['SUBTEXT']};line-height:1.6;}}
     .footer{{text-align:center;font-size:0.8rem;color:{t['SUBTEXT']};padding:24px 0 8px 0;margin-top:40px;border-top:1px solid {t['BORDER']};}}
     *{{transition:background-color 0.3s ease,color 0.3s ease !important;}}
-    </style>""", unsafe_allow_html=True)
+    </style> [data-testid="stSidebarNav"]::before {{
+    content: "🌿 India AQI Dashboard";
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: {t['ACCENT']};
+    text-align: center;
+    padding: 16px 8px 14px 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid {t['BORDER']};
+}}
+""", unsafe_allow_html=True)
 
 def get_chart_layout(t):
     return dict(paper_bgcolor=t['CARD'], plot_bgcolor=t['CARD'],
@@ -42,52 +54,31 @@ def get_chart_layout(t):
 
 def render_sidebar(t):
     with st.sidebar:
-       st.markdown(
-    f"""
-    <div style="
-        text-align:center;
-        padding:12px 5px 18px 5px;
-        margin-bottom:15px;
-        border-bottom:1px solid {t['BORDER']};
-    ">
-        <div style="
-            font-family:Poppins,sans-serif;
-            font-size:1.5rem;
-            font-weight:700;
-            color:{t['ACCENT']};
-            line-height:1.2;
-            letter-spacing:0.3px;
-        ">
-            🌿 India AQI
-        </div>
-        <div style="
-            font-family:Poppins,sans-serif;
-            font-size:1.05rem;
-            font-weight:600;
-            color:{t['TEXT']};
-            margin-top:4px;
-        ">
-            Dashboard
-        </div>
-        <div style="
-            width:45px;
-            height:3px;
-            background:{t['ACCENT']};
-            border-radius:10px;
-            margin:10px auto 0 auto;
-        "></div>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
-        if st.button("☀️ Switch to Light Mode" if t['is_dark'] else "🌙 Switch to Dark Mode", use_container_width=True):
+        if st.button(
+            "☀️ Switch to Light Mode" if t['is_dark'] else "🌙 Switch to Dark Mode",
+            use_container_width=True
+        ):
             st.session_state.theme = 'light' if t['is_dark'] else 'dark'
             st.rerun()
+
         st.markdown("---")
-        st.markdown(f"<p style='color:{t['TEXT']};font-weight:700'>🔽 Filters</p>", unsafe_allow_html=True)
-        year_range = st.slider("📅 Year Range", 2009, 2024, (2009, 2024))
+
+        st.markdown(
+            f"<p style='color:{t['TEXT']};font-weight:700'>🔽 Filters</p>",
+            unsafe_allow_html=True
+        )
+
+        year_range = st.slider(
+            "📅 Year Range",
+            2009,
+            2024,
+            (2009, 2024)
+        )
+
         st.markdown("---")
+
     return year_range
+
     
 def aqi_bucket_color(bucket):
     return {'Good':'#2DC653','Satisfactory':'#A8E063','Moderate':'#F9C74F','Poor':'#F4A261','Very Poor':'#E63946','Severe':'#6C1515'}.get(bucket,'#94A3B8')
