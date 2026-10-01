@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, MONTHS, BUCKET_ORDER, aqi_bucket_color
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, MONTHS, BUCKET_ORDER, aqi_bucket_color
 
 st.set_page_config(page_title="India AQI Dashboard", page_icon="🌿", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
