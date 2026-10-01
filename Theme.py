@@ -52,8 +52,6 @@ def render_sidebar(t):
         st.markdown(f"<p style='color:{t['TEXT']};font-weight:700'>🔽 Filters</p>", unsafe_allow_html=True)
         year_range = st.slider("📅 Year Range", 2009, 2024, (2009, 2024))
         st.markdown("---")
-        st.markdown(f"<div style='font-size:0.75rem;color:{t['SUBTEXT']};text-align:center'>Made by <b>Ayush Sharma</b><br>DAVIET • Roll: 2513533<br>CSE AI/ML</div>", unsafe_allow_html=True)
-    return year_range
 
 def aqi_bucket_color(bucket):
     return {'Good':'#2DC653','Satisfactory':'#A8E063','Moderate':'#F9C74F','Poor':'#F4A261','Very Poor':'#E63946','Severe':'#6C1515'}.get(bucket,'#94A3B8')
