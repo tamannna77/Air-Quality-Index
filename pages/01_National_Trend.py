@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, MONTHS
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, MONTHS
 
 st.set_page_config(page_title="National Trend — India AQI", page_icon="📈", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -92,4 +92,3 @@ for col,val,lbl,color in [
 ]:
     with col:
         st.markdown(f"<div style='background:{t['CARD']};border:1px solid {color};border-radius:14px;padding:20px;text-align:center;'><div style='font-family:Orbitron;font-size:1.8rem;font-weight:700;color:{color};'>{val}</div><div style='font-size:0.8rem;color:{t['SUBTEXT']};margin-top:6px;'>{lbl}</div></div>", unsafe_allow_html=True)
-render_footer(t)
