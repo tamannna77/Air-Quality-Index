@@ -43,22 +43,6 @@ def get_chart_layout(t):
 def render_sidebar(t):
     with st.sidebar:
 
-        st.markdown(
-            f"""
-            <div style="
-                text-align:center;
-                padding:10px 0 18px 0;
-                font-family:Poppins,sans-serif;
-                font-size:1.25rem;
-                font-weight:700;
-                color:{t['ACCENT']};
-            ">
-                🌿 India AQI Dashboard
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
-
         st.markdown("---")
 
         if st.button(
