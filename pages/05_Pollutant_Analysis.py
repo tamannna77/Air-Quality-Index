@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar
 
 st.set_page_config(page_title="Pollutant Analysis — India AQI", page_icon="🔬", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -116,4 +116,3 @@ fig5.update_layout(**CL,height=420,xaxis_title=f"{x_poll} (µg/m³)",yaxis_title
 fig5.update_xaxes(gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['SUBTEXT']))
 fig5.update_yaxes(gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['SUBTEXT']))
 st.plotly_chart(fig5,use_container_width=True)
-render_footer(t)
