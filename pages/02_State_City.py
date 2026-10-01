@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, MONTHS, bar_color_from_aqi
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, MONTHS, bar_color_from_aqi
 
 st.set_page_config(page_title="State & City — India AQI", page_icon="🗺️", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -105,4 +105,3 @@ cm1,cm2,cm3,cm4 = st.columns(4)
 for col,val,lbl,color in [(cm1,f"{city_avg:.0f}",f"{sel_city} Avg AQI",t['ACCENT']),(cm2,worst_m,"Worst Month","#E63946"),(cm3,best_m,"Best Month","#2DC653"),(cm4,f"{'+' if vs_nat>0 else ''}{vs_nat:.0f}","vs National Avg","#E63946" if vs_nat>0 else "#2DC653")]:
     with col:
         st.markdown(f"<div style='background:{t['CARD']};border:1px solid {color};border-radius:12px;padding:16px;text-align:center;margin-top:8px;'><div style='font-family:Orbitron;font-size:1.4rem;font-weight:700;color:{color};'>{val}</div><div style='font-size:0.78rem;color:{t['SUBTEXT']};margin-top:4px;'>{lbl}</div></div>", unsafe_allow_html=True)
-render_footer(t)
