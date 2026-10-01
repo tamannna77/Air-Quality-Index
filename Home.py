@@ -59,7 +59,7 @@ fig_map = px.scatter_map(
     zoom=4,
     center={"lat":22.5,"lon":82.0},
     height=520,
-    map_style="carto-darkmatter"
+    map_style=t['MAP_STYLE']
 )
 fig_map.update_layout(paper_bgcolor=t['CARD'],margin=dict(l=0,r=0,t=0,b=0),coloraxis_colorbar=dict(title=dict(text="AQI",font=dict(color=t['TEXT'])),tickfont=dict(color=t['SUBTEXT'])))
 st.plotly_chart(fig_map,use_container_width=True)
