@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, MONTHS, bar_color_from_aqi
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, MONTHS, bar_color_from_aqi
 
 st.set_page_config(page_title="Station Analysis — India AQI", page_icon="📡", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -112,4 +112,3 @@ fig6.update_layout(**CL,title=f"All Stations in {sel_st} — Ranked by AQI",heig
 fig6.update_xaxes(range=[0,state_stns['AQI'].max()+30],gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['SUBTEXT']))
 fig6.update_yaxes(autorange='reversed',gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['TEXT'],size=11))
 st.plotly_chart(fig6,use_container_width=True)
-render_footer(t)
