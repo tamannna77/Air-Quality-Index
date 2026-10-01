@@ -53,8 +53,7 @@ def render_sidebar(t):
         year_range = st.slider("📅 Year Range", 2009, 2024, (2009, 2024))
         st.markdown("---")
     return year_range
-def render_footer(t):
-    st.markdown(f"<div class='footer'>📊 India AQI Dashboard &nbsp;|&nbsp; Ayush Sharma — Roll No. 2513533 &nbsp;|&nbsp; DAVIET, Jalandhar — CSE AI/ML &nbsp;|&nbsp; Data: CPCB via Kaggle &nbsp;|&nbsp; Tools: Python • Pandas • Plotly • Streamlit</div>", unsafe_allow_html=True)
+    
 def aqi_bucket_color(bucket):
     return {'Good':'#2DC653','Satisfactory':'#A8E063','Moderate':'#F9C74F','Poor':'#F4A261','Very Poor':'#E63946','Severe':'#6C1515'}.get(bucket,'#94A3B8')
 
