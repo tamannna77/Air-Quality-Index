@@ -43,8 +43,6 @@ def get_chart_layout(t):
 def render_sidebar(t):
     with st.sidebar:
 
-        st.markdown("---")
-
         if st.button(
             "☀️ Switch to Light Mode" if t['is_dark'] else "🌙 Switch to Dark Mode",
             use_container_width=True
