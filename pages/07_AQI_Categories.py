@@ -12,7 +12,7 @@ with st.spinner("Loading data..."):
     df, stations, pollutants = load_all_data()
 df = df[(df['year']>=year_range[0])&(df['year']<=year_range[1])]
 
-st.markdown(f"<div style='margin-bottom:24px;'><p style='color:{t['ACCENT']};font-size:0.85rem;font-weight:700;letter-spacing:4px;'>PHASE 8 ANALYSIS</p><h1 style='font-family:Poppins;font-size:2.2rem;font-weight:700;color:{t['TEXT']};margin:0;'>📊 AQI Categories</h1><p style='color:{t['SUBTEXT']};font-size:0.95rem;margin-top:8px;'>How often is India's air actually safe to breathe? Explore distribution across 15 years.</p></div>", unsafe_allow_html=True)
+st.markdown(f"<div style='margin-bottom:24px;'><h1 style='font-family:Poppins;font-size:2.2rem;font-weight:700;color:{t['TEXT']};margin:0;'>📊 AQI Categories</h1><p style='color:{t['SUBTEXT']};font-size:0.95rem;margin-top:8px;'>How often is India's air actually safe to breathe? Explore distribution across 15 years.</p></div>", unsafe_allow_html=True)
 st.markdown("---")
 
 # Health advisory
