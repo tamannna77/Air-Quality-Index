@@ -38,7 +38,7 @@ st.markdown("<div class='section-title'>🗺️ India AQI Heat Map</div>", unsaf
 st.markdown(f"<p style='color:{t['SUBTEXT']};font-size:0.9rem'>Hover over any point to see city name and AQI value.</p>", unsafe_allow_html=True)
 map_df = df.dropna(subset=['latitude','longitude','AQI'])
 map_df = map_df.groupby(['station_code','city','state','latitude','longitude'])['AQI'].mean().reset_index()
-fig_map = px.scatter_mapbox(
+fig_map = px.scatter_map(
     map_df,
     lat='latitude',
     lon='longitude',
@@ -56,7 +56,6 @@ fig_map = px.scatter_mapbox(
         [1,"#6C1515"]
     ],
     range_color=[50,200],
-    mapbox_style=t['MAP_STYLE'],
     zoom=4,
     center={"lat":22.5,"lon":82.0},
     height=520
