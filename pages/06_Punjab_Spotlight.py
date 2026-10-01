@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, MONTHS, bar_color_from_aqi
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, MONTHS, bar_color_from_aqi
 
 st.set_page_config(page_title="Punjab Spotlight — India AQI", page_icon="🌾", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -120,4 +120,3 @@ if not punjab_nov.empty:
     fig6.update_yaxes(gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['SUBTEXT']))
     st.plotly_chart(fig6,use_container_width=True)
 st.markdown(f"<div class='insight-box' style='border-color:{ORANGE};'>💡 <b style='color:{t['TEXT']}'>Key Insight:</b> The November line (red) is consistently the highest across all years — confirming stubble burning is a persistent, annual, predictable pollution event. Despite government bans since 2015, the November AQI spike continues unabated every year.</div>", unsafe_allow_html=True)
-render_footer(t)
