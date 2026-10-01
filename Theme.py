@@ -42,9 +42,44 @@ def get_chart_layout(t):
 
 def render_sidebar(t):
     with st.sidebar:
-        st.markdown(f"<h2 style='color:{t['TEXT']};margin:0'>🌿 India AQI</h2>", unsafe_allow_html=True)
-        st.markdown(f"<p style='color:{t['SUBTEXT']};margin:0 0 12px 0'>Dashboard</p>", unsafe_allow_html=True)
-        st.markdown("---")
+       st.markdown(
+    f"""
+    <div style="
+        text-align:center;
+        padding:12px 5px 18px 5px;
+        margin-bottom:15px;
+        border-bottom:1px solid {t['BORDER']};
+    ">
+        <div style="
+            font-family:Poppins,sans-serif;
+            font-size:1.5rem;
+            font-weight:700;
+            color:{t['ACCENT']};
+            line-height:1.2;
+            letter-spacing:0.3px;
+        ">
+            🌿 India AQI
+        </div>
+        <div style="
+            font-family:Poppins,sans-serif;
+            font-size:1.05rem;
+            font-weight:600;
+            color:{t['TEXT']};
+            margin-top:4px;
+        ">
+            Dashboard
+        </div>
+        <div style="
+            width:45px;
+            height:3px;
+            background:{t['ACCENT']};
+            border-radius:10px;
+            margin:10px auto 0 auto;
+        "></div>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
         if st.button("☀️ Switch to Light Mode" if t['is_dark'] else "🌙 Switch to Dark Mode", use_container_width=True):
             st.session_state.theme = 'light' if t['is_dark'] else 'dark'
             st.rerun()
