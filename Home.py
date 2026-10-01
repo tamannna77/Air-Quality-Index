@@ -56,6 +56,7 @@ fig_map = px.scatter_map(
         [1,"#6C1515"]
     ],
     range_color=[50,200],
+    mapbox_style=t['MAP_STYLE'],
     zoom=4,
     center={"lat":22.5,"lon":82.0},
     height=520
