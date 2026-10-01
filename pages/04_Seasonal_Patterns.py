@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, MONTHS, bar_color_from_aqi
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar,MONTHS, bar_color_from_aqi
 
 st.set_page_config(page_title="Seasonal Patterns — India AQI", page_icon="📅", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -107,4 +107,3 @@ for col,(icon,title_,desc) in zip([ce1,ce2,ce3],[
 ]):
     with col:
         st.markdown(f"<div style='background:{t['CARD']};border:1px solid #F4A261;border-top:4px solid #F4A261;border-radius:14px;padding:18px;'><div style='font-size:1.6rem;margin-bottom:8px;'>{icon}</div><div style='font-size:0.92rem;font-weight:700;color:{t['TEXT']};margin-bottom:6px;'>{title_}</div><div style='font-size:0.78rem;color:{t['SUBTEXT']};line-height:1.5;'>{desc}</div></div>", unsafe_allow_html=True)
-render_footer(t)
