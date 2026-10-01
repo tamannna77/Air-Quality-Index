@@ -2,7 +2,7 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 from data_loader import load_all_data
-from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, render_footer, BUCKET_ORDER, aqi_bucket_color
+from Theme import get_theme, inject_theme_css, get_chart_layout, render_sidebar, BUCKET_ORDER, aqi_bucket_color
 
 st.set_page_config(page_title="AQI Categories — India AQI", page_icon="📊", layout="wide")
 t = get_theme(); inject_theme_css(t); CL = get_chart_layout(t)
@@ -102,4 +102,3 @@ tp_cols = st.columns(3)
 for i,(icon,title_,desc) in enumerate(tips_data):
     with tp_cols[i%3]:
         st.markdown(f"<div style='background:{t['CARD']};border:1px solid {t['BORDER']};border-left:4px solid {t['ACCENT']};border-radius:12px;padding:18px;margin-bottom:12px;'><div style='font-size:1.8rem;margin-bottom:8px;'>{icon}</div><div style='font-size:0.95rem;font-weight:700;color:{t['TEXT']};margin-bottom:6px;'>{title_}</div><div style='font-size:0.8rem;color:{t['SUBTEXT']};line-height:1.5;'>{desc}</div></div>", unsafe_allow_html=True)
-render_footer(t)
