@@ -25,7 +25,7 @@ def inject_theme_css(t):
     padding:18px 12px 14px 12px;
     margin-bottom:8px;
     font-family:'Poppins',sans-serif;
-    font-size:1.2rem;
+    font-size:1.5rem;
     font-weight:700;
     color:{t['ACCENT']};
     text-align:center;
@@ -44,6 +44,7 @@ def inject_theme_css(t):
     *{{transition:background-color 0.3s ease,color 0.3s ease !important;}}
     </style>""", unsafe_allow_html=True)
 
+
 def get_chart_layout(t):
     return dict(paper_bgcolor=t['CARD'], plot_bgcolor=t['CARD'],
                 font=dict(family='Inter',color=t['SUBTEXT']),
@@ -54,6 +55,7 @@ def get_chart_layout(t):
 def render_sidebar(t):
     with st.sidebar:
 
+        
         if st.button(
             "☀️ Switch to Light Mode" if t['is_dark'] else "🌙 Switch to Dark Mode",
             use_container_width=True
