@@ -65,6 +65,35 @@ fig_map = px.scatter_map(
     center={"lat": 22.5, "lon": 82.0},
     height=520
 )
+
+# Dark theme + circle outlines
+fig_map.update_traces(
+    marker=dict(
+        opacity=0.85,
+        line=dict(
+            width=1.2,
+            color=t['TEXT']
+        )
+    )
+)
+
+fig_map.update_layout(
+    paper_bgcolor=t['CARD'],
+    plot_bgcolor=t['CARD'],
+    margin=dict(l=0, r=0, t=0, b=0),
+    font=dict(color=t['TEXT']),
+    coloraxis_colorbar=dict(
+        title=dict(
+            text="AQI",
+            font=dict(color=t['TEXT'])
+        ),
+        tickfont=dict(color=t['SUBTEXT']),
+        bgcolor=t['CARD'],
+        bordercolor=t['BORDER'],
+        borderwidth=1
+    )
+)
+
 fig_map.update_layout(paper_bgcolor=t['CARD'],margin=dict(l=0,r=0,t=0,b=0),coloraxis_colorbar=dict(title=dict(text="AQI",font=dict(color=t['TEXT'])),tickfont=dict(color=t['SUBTEXT'])))
 st.plotly_chart(fig_map,use_container_width=True)
 st.markdown(f"<div class='insight-box'>💡 <b style='color:{t['TEXT']}'>Key Insight:</b> The map clearly shows India's North-South pollution divide. The entire Indo-Gangetic Plain (Delhi, Punjab, Bihar, UP) shows red and orange while Northeast India and coastal South India remain green.</div>", unsafe_allow_html=True)
