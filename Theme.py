@@ -19,13 +19,15 @@ def inject_theme_css(t):
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&family=Orbitron:wght@700&display=swap');
     html,body,[class*="css"]{{font-family:'Inter',sans-serif !important;}}
     .stApp{{background-color:{t['BG']} !important;}}
-    [data-testid="stSidebarNav"]::before{{
+[data-testid="stSidebar"]{{background-color:{t['SIDEBAR']} !important;}}
+
+[data-testid="stSidebarNav"]::before{{
     content:"🌿 India AQI Dashboard";
     display:block;
     padding:18px 12px 14px 12px;
     margin-bottom:8px;
     font-family:'Poppins',sans-serif;
-    font-size:1.5rem;
+    font-size:1.8rem;
     font-weight:700;
     color:{t['ACCENT']};
     text-align:left;
