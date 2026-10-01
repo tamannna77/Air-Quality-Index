@@ -22,15 +22,14 @@ def inject_theme_css(t):
     [data-testid="stSidebarNav"]::before{{
     content:"🌿 India AQI Dashboard";
     display:block;
-    padding:20px 8px 16px 8px;
+    padding:18px 12px 14px 12px;
     margin-bottom:8px;
     font-family:'Poppins',sans-serif;
-    font-size:1.55rem;
+    font-size:1.5rem;
     font-weight:700;
-    line-height:1.25;
     color:{t['ACCENT']};
-    text-align:center;
-    border-bottom:2px solid {t['BORDER']};
+    text-align:left;
+    border-bottom:1px solid {t['BORDER']};
 }}
     [data-testid="stSidebar"] *{{color:{t['TEXT']} !important;}}
     .stButton>button{{background:{t['CARD']} !important;color:{t['TEXT']} !important;border:1px solid {t['BORDER']} !important;border-radius:8px !important;}}
