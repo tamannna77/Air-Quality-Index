@@ -28,19 +28,25 @@ st.markdown("---")
 st.markdown("<div class='section-title'>🏛️ State-wise AQI Comparison</div>", unsafe_allow_html=True)
 c1, c2 = st.columns(2)
 
+
 with c1:
     state_aqi = (
-        df.groupby('state')['AQI']
+        df[df['state'] != 'Unknown Unassigned']
+        .groupby('state')['AQI']
         .mean()
         .sort_values(ascending=False)
         .head(10)
         .reset_index()
     )
 
-    # Add West Bengal at the end of C1
-    west_bengal = df[df['state'] == 'West Bengal'].groupby('state')['AQI'].mean().reset_index()
-    state_aqi = state_aqi[state_aqi['state'] != 'West Bengal']
-    state_aqi = pd.concat([state_aqi, west_bengal], ignore_index=True)
+    # Replace the last bar with West Bengal
+    west_bengal_aqi = df.loc[
+        df['state'] == 'West Bengal', 'AQI'
+    ].mean()
+
+    if pd.notna(west_bengal_aqi):
+        state_aqi.loc[state_aqi.index[-1], 'state'] = 'West Bengal'
+        state_aqi.loc[state_aqi.index[-1], 'AQI'] = west_bengal_aqi
 
     fig1 = px.bar(
         state_aqi,
@@ -48,7 +54,9 @@ with c1:
         y='state',
         orientation='h',
         color='AQI',
-        color_continuous_scale=["#F9C74F", "#F4A261", "#E63946"],
+        color_continuous_scale=[
+            "#F9C74F", "#F4A261", "#E63946"
+        ],
         title="🔴 Top 10 Most Polluted States",
         text=state_aqi['AQI'].round(0).astype(str)
     )
@@ -77,6 +85,7 @@ with c1:
         linecolor=t['GRID'],
         tickfont=dict(color=t['TEXT'], size=11)
     )
+
     st.plotly_chart(fig1, use_container_width=True)
 
 with c2:
