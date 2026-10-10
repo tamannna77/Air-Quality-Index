@@ -30,6 +30,19 @@ for i, filepath in enumerate(all_files):
 print("Combining all files...")
 df_raw = pd.concat(dfs, ignore_index=True)
 df = df_raw.merge(stations, on='station_code', how='left')
+
+# Clean invalid / unknown station metadata before creating charts
+# This removes the "Unknown Unassigned" category appearing in the dashboard.
+df['state'] = df['state'].astype(str).str.strip()
+df['city'] = df['city'].astype(str).str.strip()
+unknown_mask = df['state'].str.lower().str.contains('unknown|unassigned', na=False) | \
+               df['city'].str.lower().str.contains('unknown|unassigned', na=False)
+if unknown_mask.any():
+    print(f"Removing {unknown_mask.sum():,} rows with unknown/unassigned state/city labels")
+    df = df[~unknown_mask].copy()
+
+df = df[df['state'].ne('nan') & df['state'].ne('')].copy()
+
 df.rename(columns={'timestamp':'date'}, inplace=True)
 df['date'] = pd.to_datetime(df['date'])
 df['year'] = df['date'].dt.year
