@@ -26,26 +26,116 @@ st.markdown(f"<div style='margin-bottom:24px;'><h1 style='font-family:Poppins;fo
 st.markdown("---")
 
 st.markdown("<div class='section-title'>🏛️ State-wise AQI Comparison</div>", unsafe_allow_html=True)
-c1,c2 = st.columns(2)
-with c1:
-    state_aqi = df.groupby('state')['AQI'].mean().sort_values(ascending=False).head(10).reset_index()
-    fig1 = px.bar(state_aqi,x='AQI',y='state',orientation='h',color='AQI',color_continuous_scale=["#F9C74F","#F4A261","#E63946"],title="🔴 Top 10 Most Polluted States",text=state_aqi['AQI'].round(0).astype(str))
-    fig1.update_traces(textposition='inside',textfont=dict(color='white',size=12,family='Orbitron'))
-    fig1.update_layout(**CL,height=420,showlegend=False,coloraxis_showscale=False,xaxis_title="Average AQI",yaxis_title="")
-    fig1.update_xaxes(range=[0,200],gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['SUBTEXT']))
-    fig1.update_yaxes(autorange='reversed',gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['TEXT'],size=11))
-    st.plotly_chart(fig1,use_container_width=True)
-with c2:
-    all_states = df.groupby('state')['AQI'].mean().sort_values(ascending=False).reset_index()
-    fig2 = px.bar(all_states,x='AQI',y='state',orientation='h',color='AQI',color_continuous_scale=[[0,"#2DC653"],[0.4,"#F9C74F"],[0.7,"#F4A261"],[1,"#E63946"]],title="🗺️ All States — AQI Rank",text=all_states['AQI'].round(0).astype(str))
-    fig2.update_traces(textposition='inside',textfont=dict(color='white',size=11,family='Orbitron'))
-    fig2.update_layout(**CL,height=520,showlegend=False,coloraxis_showscale=False,xaxis_title="Average AQI",yaxis_title="")
-    fig2.update_xaxes(range=[0,200],gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['SUBTEXT']))
-    fig2.update_yaxes(autorange='reversed',gridcolor=t['GRID'],linecolor=t['GRID'],tickfont=dict(color=t['TEXT'],size=10))
-    st.plotly_chart(fig2,use_container_width=True)
-st.markdown(f"<div class='insight-box'>💡 <b style='color:{t['TEXT']}>Key Insight:</b> Delhi NCT leads at ~161 AQI. Bihar, Haryana and Punjab form the polluted North India belt. Southern states remain greener overall.</div>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+c1, c2 = st.columns(2)
 
+with c1:
+    state_aqi = (
+        df.groupby('state')['AQI']
+        .mean()
+        .sort_values(ascending=False)
+        .head(10)
+        .reset_index()
+    )
+
+    # Add West Bengal at the end of C1
+    west_bengal = df[df['state'] == 'West Bengal'].groupby('state')['AQI'].mean().reset_index()
+    state_aqi = state_aqi[state_aqi['state'] != 'West Bengal']
+    state_aqi = pd.concat([state_aqi, west_bengal], ignore_index=True)
+
+    fig1 = px.bar(
+        state_aqi,
+        x='AQI',
+        y='state',
+        orientation='h',
+        color='AQI',
+        color_continuous_scale=["#F9C74F", "#F4A261", "#E63946"],
+        title="🔴 Top 10 Most Polluted States",
+        text=state_aqi['AQI'].round(0).astype(str)
+    )
+
+    fig1.update_traces(
+        textposition='inside',
+        textfont=dict(color='white', size=12, family='Orbitron')
+    )
+    fig1.update_layout(
+        **CL,
+        height=420,
+        showlegend=False,
+        coloraxis_showscale=False,
+        xaxis_title="Average AQI",
+        yaxis_title=""
+    )
+    fig1.update_xaxes(
+        range=[0, 200],
+        gridcolor=t['GRID'],
+        linecolor=t['GRID'],
+        tickfont=dict(color=t['SUBTEXT'])
+    )
+    fig1.update_yaxes(
+        autorange='reversed',
+        gridcolor=t['GRID'],
+        linecolor=t['GRID'],
+        tickfont=dict(color=t['TEXT'], size=11)
+    )
+    st.plotly_chart(fig1, use_container_width=True)
+
+with c2:
+    # Remove Unknown Unassigned from C2
+    all_states = (
+        df[df['state'] != 'Unknown Unassigned']
+        .groupby('state')['AQI']
+        .mean()
+        .sort_values(ascending=False)
+        .reset_index()
+    )
+
+    fig2 = px.bar(
+        all_states,
+        x='AQI',
+        y='state',
+        orientation='h',
+        color='AQI',
+        color_continuous_scale=[
+            [0, "#2DC653"],
+            [0.4, "#F9C74F"],
+            [0.7, "#F4A261"],
+            [1, "#E63946"]
+        ],
+        title="🗺️ All States — AQI Rank",
+        text=all_states['AQI'].round(0).astype(str)
+    )
+
+    fig2.update_traces(
+        textposition='inside',
+        textfont=dict(color='white', size=11, family='Orbitron')
+    )
+    fig2.update_layout(
+        **CL,
+        height=520,
+        showlegend=False,
+        coloraxis_showscale=False,
+        xaxis_title="Average AQI",
+        yaxis_title=""
+    )
+    fig2.update_xaxes(
+        range=[0, 200],
+        gridcolor=t['GRID'],
+        linecolor=t['GRID'],
+        tickfont=dict(color=t['SUBTEXT'])
+    )
+    fig2.update_yaxes(
+        autorange='reversed',
+        gridcolor=t['GRID'],
+        linecolor=t['GRID'],
+        tickfont=dict(color=t['TEXT'], size=10)
+    )
+    st.plotly_chart(fig2, use_container_width=True)
+
+st.markdown(
+    f"<div class='insight-box'>💡 <b style='color:{t['TEXT']}'>Key Insight:</b> Delhi NCT leads at ~161 AQI. Bihar, Haryana and Punjab form the polluted North India belt. Southern states remain greener overall.</div>",
+    unsafe_allow_html=True
+)
+st.markdown("<br>", unsafe_allow_html=True)
 st.markdown("<div class='section-title'>📈 State AQI Trend Explorer</div>", unsafe_allow_html=True)
 all_state_list = sorted(df['state'].dropna().unique().tolist())
 sel_state = st.selectbox("🗺️ Select a State",all_state_list,index=all_state_list.index('Punjab') if 'Punjab' in all_state_list else 0)
